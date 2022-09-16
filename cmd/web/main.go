@@ -24,6 +24,8 @@ func main() {
 	// store template cache into the variable app
 	app.TemplateCache = tc
 
+	render.NewTemplate(&app)
+
 	//handlers
 	http.HandleFunc("/", handlers.HomePage)
 	http.HandleFunc("/about", handlers.AboutPage)

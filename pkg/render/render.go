@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/theclassicdev/monolithic-app/pkg/config"
 )
 
 /* SIMPLER METHOD TO CREATE A CACHE FOR TEMPLATE*/
@@ -58,25 +60,28 @@ import (
 // }
 
 /* RELATIVELY COMPLEX METHOD TO CREATE A CACHE FOR TEMPLATE*/
+var app *config.AppConfig
+
+func NewTemplate(a *config.AppConfig) {
+	app = a
+}
+
 //RenderTemplate render templates
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
+	//get template cache from app config
 	//create template cache
-
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal(err)
-	}
+	tc := app.TemplateCache
 
 	//get requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("could not get template from template cache")
 	}
 
 	//buf is a variable that will hold bytes: finer grain error checking
 	buf := new(bytes.Buffer)
-	err = t.Execute(buf, nil)
+	err := t.Execute(buf, nil)
 	if err != nil {
 		log.Println(err) // this will tell you that the error logged out is an error from the map
 	}
