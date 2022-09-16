@@ -23,12 +23,17 @@ func main() {
 
 	// store template cache into the variable app
 	app.TemplateCache = tc
+	app.UseCache = false
+
+	repo := handlers.NewRepo(&app)
+	handlers.NewHandlers(repo)
 
 	render.NewTemplate(&app)
+	
 
 	//handlers
-	http.HandleFunc("/", handlers.HomePage)
-	http.HandleFunc("/about", handlers.AboutPage)
+	http.HandleFunc("/", handlers.Repo.HomePage)
+	http.HandleFunc("/about", handlers.Repo.AboutPage)
 
 	//server
 	fmt.Printf("Starting server on port %s", port)
