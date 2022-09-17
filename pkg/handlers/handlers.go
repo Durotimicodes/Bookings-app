@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/theclassicdev/monolithic-app/pkg/config"
+	"github.com/theclassicdev/monolithic-app/pkg/models"
 	"github.com/theclassicdev/monolithic-app/pkg/render"
 )
 
@@ -28,10 +29,17 @@ func NewHandlers(r *Repository) {
 }
 
 func (R *Repository) HomePage(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.html")
+	render.RenderTemplate(w, "home.html", &models.TemplateData{})
 
 }
 
 func (R *Repository) AboutPage(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.html")
+	sm := make(map[string]string)
+
+	sm["test"] = "Hello monolithic application"
+
+	//send data to template
+	render.RenderTemplate(w, "about.html", &models.TemplateData{
+		StringMap: sm,
+	})
 }
