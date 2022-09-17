@@ -60,6 +60,10 @@ import (
 // 	return nil
 // }
 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 /* RELATIVELY COMPLEX METHOD TO CREATE A CACHE FOR TEMPLATE*/
 var app *config.AppConfig
 
@@ -88,6 +92,8 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 
 	//buf is a variable that will hold bytes: finer grain error checking
 	buf := new(bytes.Buffer)
+
+	td = AddDefaultData(td)
 	err := t.Execute(buf, td)
 	if err != nil {
 		log.Println(err) // this will tell you that the error logged out is an error from the map
