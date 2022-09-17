@@ -13,14 +13,23 @@ import (
 )
 
 const port = ":8089"
+var app config.AppConfig
+var session *scs.SessionManager
 
 func main() {
 
-	var app config.AppConfig
+	app.InProduction = false
 
 	//configuration of sessions
-	session := scs.New()
-	session.Lifetime = 24 * time.Hour // session shoulf last for a day
+	session = scs.New()
+	session.Lifetime = 12 * time.Hour // session shoulf last for half aday
+	//store session into Cookie
+	session.Cookie.Persist = true //ensures your session persist even if you close your web browser
+	session.Cookie.Secure = app.InProduction // encrypt the cookie
+	session.Cookie.SameSite = http.SameSiteLaxMode
+
+	app.Session = session
+
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {

@@ -15,7 +15,8 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Use(middleware.Recoverer)
 	mux.Use(WriteToConsole) //customized middelware
-	mux.Use(NoSurf) //built to create a CSRFToken
+	mux.Use(NoSurf)         //built to create a CSRFToken
+	mux.Use(SessionLoad)
 
 	mux.Get("/", handlers.Repo.HomePage)
 	mux.Get("/about", handlers.Repo.AboutPage)
