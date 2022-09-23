@@ -12,6 +12,7 @@ import (
 	"github.com/theclassicdev/monolithic-app/pkg/render"
 )
 
+//setting global variables
 const port = ":8089"
 var app config.AppConfig
 var session *scs.SessionManager
@@ -22,7 +23,7 @@ func main() {
 
 	//configuration of sessions
 	session = scs.New()
-	session.Lifetime = 12 * time.Hour // session shoulf last for half aday
+	session.Lifetime = 12 * time.Hour // session should last for half aday
 	//store session into Cookie
 	session.Cookie.Persist = true //ensures your session persist even if you close your web browser
 	session.Cookie.Secure = app.InProduction // encrypt the cookie

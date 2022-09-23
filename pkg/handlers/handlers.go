@@ -23,6 +23,7 @@ func NewRepo(a *config.AppConfig) *Repository {
 	}
 }
 
+
 //NewHandlers sets the repository for the handlers
 func NewHandlers(r *Repository) {
 	Repo = r
