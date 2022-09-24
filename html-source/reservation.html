@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"><!--Bootrap css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs4.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs4.min.css"><!--Date picker-->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css"><!--To notify-->
     <title>Generals Quarters</title>
     <style>
         .my-footer{
@@ -19,6 +20,9 @@
 
         .room-image {
             max-width: 50%;
+        }
+        .redText{
+          color: red;
         }
     </style>
 </head>
@@ -70,31 +74,38 @@
             <div class="col-md-3"></div>
               <div class="col-md-6">
               <h1 class="mt-5">Search for Availability</h1>
-                  <form action="" method="POST">
+                  <form action="reservation.html" method="get" novalidate class="needs-validation" >
                       <!-- select start date -->
 
-                      <div class="row">
-                        <div class="col">
-                      <div class="mb-3">
-                        <label for="start_date" class="form-label">Starting Date</label>
-                        <input required type="date" class="form-control" id="start_date" name="start_date" aria-describedby="startDateHelp">
-                        <div id="startDateHelp" class="form-text">Enter your starting date in the form of YYYY-MM-DD</div>
-                      </div>
-                    </div>
-
-                      <!-- select end date -->
+                    <div class="form-row">
                       <div class="col">
-                      <div class="mb-3">
-                        <label for="end_date" class="form-label">Ending Date</label>
-                        <input required type="date" class="form-control" id="end_date" name="end_date" aria-describedby="endDateHelp">
-                        <div id="endDateHelp" class="form-text">Enter your ending date in the form of YYYY-MM-DD</div>
-                      </div>
+                        <div class="form-row" >
+                          <div class="col" >
+                          <input required type="text" name="start" class="form-control" id="reservation-dates" placeholder="Arrival">
+                          <div id="startDateHelp" class="form-text">Enter your starting date in the form of YYYY-MM-DD</div>
+                          </div>
+                          
+                        <div class="col">
+                          <input required type="text" name="end" class="form-control" id="reservation-dates" placeholder="Departure">
+                          <div id="endDateHelp" class="form-text">Enter your ending date in the form of YYYY-MM-DD</div>
+                        </div>
+                        </div>
                       </div>
                     </div>
 
+                       <!-- select end date -->
+                    <hr>
                     <button type="submit" class="btn btn-primary">Search Availability</button>
                   </form>
         </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p id="myParagraph">This is some text</p>
+        <p>
+          <button class="btn btn-outline-secondary" id="colorButton">Click me</button>
+        </p>
+      </div>
     </div>
 
 </div>
@@ -113,6 +124,43 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
+<script>
+  (() => {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+  
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+
+
+      document.getElementById("colorButton").addEventListener("click", function(){
+
+        let El = document.getElementById("myParagraph");
+
+        if (El.classList.contains("redText")){
+            El.classList.remove("redText");
+        }else {
+            El.classList.add("redText");
+        }
+      })
+
+      const elem = document.getElementById("reservation-dates");
+      const datepicker = new Datepicker(elem, {
+        format: "yyyy-mm-dd"
+      }); 
+    </script>
 </body>
 </html>
