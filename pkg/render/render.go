@@ -77,7 +77,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	//create template cache
 	var tc map[string]*template.Template
 
-	//if useCache is true build the template cache otherwise re  build the template cache
+	//if useCache is true build the template cache otherwise rebuild the template cache
 	if app.UseCache {
 		tc = app.TemplateCache
 	} else {

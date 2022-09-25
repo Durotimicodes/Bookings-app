@@ -18,8 +18,11 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Use(NoSurf)               //built to create a CSRFToken
 	mux.Use(SessionLoad)
 
-	mux.Get("/", handlers.Repo.HomePage)
-	mux.Get("/about", handlers.Repo.AboutPage)
+	mux.Get("/", handlers.Repo.Home)
+	mux.Get("/about", handlers.Repo.About)
+	mux.Get("/generals-quarters", handlers.Repo.Generals)
+	mux.Get("/majors-suite", handlers.Repo.Majors)
+	mux.Get("/search-availability", handlers.Repo.Availability)
 
 	//serving the static file
 	//http.FileServer return the handler that the http request which hold the content
