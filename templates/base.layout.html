@@ -73,13 +73,14 @@
 <script src="https://unpkg.com/notie"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
 {{block "js" .}}
 
 {{end}}
-<script>
+
 
  
-
+<script>
    //global function
    let attention = Prompt();
 
@@ -105,36 +106,9 @@
   })()
 
 
-      document.getElementById("colorButton").addEventListener("click", function(){
+ 
 
-        //notify("This is my message", "warning")
-        //notifyModal("Success","<em>This is a success message</em>", "success", "right")
-
-        let html = `
-        <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
-          <div class="form-row">
-            <div class="col">
-              <div class="form-row" id="reservation-dates-modal">
-                <div class="col">
-                  <input disabled type="text" required class="form-control" name="start" id="start" placeholder="Arrival">
-                </div>
-                <div class="col">
-                  <input disabled type="text" required class="form-control" name="end" id="end" placeholder="Departure">
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        `
-        attention.custom({msg: html, title: "Choose your date"});
-       
-
-      })
-
-      const elem = document.getElementById("reservation-dates");
-      const datepicker = new Datepicker(elem, {
-        format: "yyyy-mm-dd"
-      }); 
+     
 
       //Notify
       function notify(msg, msgType){
