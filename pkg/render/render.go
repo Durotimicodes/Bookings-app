@@ -84,6 +84,8 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 		tc, _ = CreateTemplateCache()
 	}
 
+	log.Println("Template cache==>", tc)
+
 	//get requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
@@ -139,6 +141,8 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		myCache[fileName] = ts
 
 	}
+
+	log.Println("cache==>", myCache)
 
 	return myCache, nil
 

@@ -13,7 +13,7 @@ import (
 )
 
 //setting global variables
-const port = ":8089"
+const port = ":8090"
 var app config.AppConfig
 var session *scs.SessionManager
 

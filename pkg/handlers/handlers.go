@@ -62,15 +62,19 @@ func (R *Repository) Reservation(w http.ResponseWriter, r *http.Request){
 
 //General renders the generals quarters page
 func (R *Repository) Generals(w http.ResponseWriter, r *http.Request){
-	render.RenderTemplate(w, "generals-quarters.html", &models.TemplateData{})
+	render.RenderTemplate(w, "general.html", &models.TemplateData{})
 }
 //Majors renders the room page
 func (R *Repository) Majors(w http.ResponseWriter, r *http.Request){
-	render.RenderTemplate(w, "majors-suite.html", &models.TemplateData{})
+	render.RenderTemplate(w, "majors.html", &models.TemplateData{})
 }
 
 
 //Availability renders the available room page
 func (R *Repository) Availability(w http.ResponseWriter, r *http.Request){
 	render.RenderTemplate(w, "search-availability.html", &models.TemplateData{})
+}
+
+func (R *Repository) Contact(w http.ResponseWriter, r *http.Request){
+	render.RenderTemplate(w, "contact.html", &models.TemplateData{})
 }
