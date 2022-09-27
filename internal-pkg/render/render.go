@@ -7,8 +7,9 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/theclassicdev/monolithic-app/pkg/config"
-	"github.com/theclassicdev/monolithic-app/pkg/models"
+	"github.com/justinas/nosurf"
+	"github.com/theclassicdev/monolithic-app/internal-pkg/config"
+	"github.com/theclassicdev/monolithic-app/internal-pkg/models"
 )
 
 /* SIMPLER METHOD TO CREATE A CACHE FOR TEMPLATE*/
@@ -60,7 +61,10 @@ import (
 // 	return nil
 // }
 
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+
+	td.CSRFToken = nosurf.Token(r)
+
 	return td
 }
 
@@ -72,7 +76,7 @@ func NewTemplate(a *config.AppConfig) {
 }
 
 //RenderTemplate render templates
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData, r *http.Request) {
 
 	//create template cache
 	var tc map[string]*template.Template
@@ -95,7 +99,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	//buf is a variable that will hold bytes: finer grain error checking
 	buf := new(bytes.Buffer)
 
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 	err := t.Execute(buf, td)
 	if err != nil {
 		log.Println(err) // this will tell you that the error logged out is an error from the map

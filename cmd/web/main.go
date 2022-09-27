@@ -7,13 +7,14 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/theclassicdev/monolithic-app/pkg/config"
-	"github.com/theclassicdev/monolithic-app/pkg/handlers"
-	"github.com/theclassicdev/monolithic-app/pkg/render"
+	"github.com/theclassicdev/monolithic-app/internal-pkg/config"
+	"github.com/theclassicdev/monolithic-app/internal-pkg/handlers"
+	"github.com/theclassicdev/monolithic-app/internal-pkg/render"
 )
 
 //setting global variables
-const port = ":8090"
+const port = ":8080"
+
 var app config.AppConfig
 var session *scs.SessionManager
 
@@ -25,12 +26,11 @@ func main() {
 	session = scs.New()
 	session.Lifetime = 12 * time.Hour // session should last for half aday
 	//store session into Cookie
-	session.Cookie.Persist = true //ensures your session persist even if you close your web browser
+	session.Cookie.Persist = true            //ensures your session persist even if you close your web browser
 	session.Cookie.Secure = app.InProduction // encrypt the cookie
 	session.Cookie.SameSite = http.SameSiteLaxMode
 
 	app.Session = session
-
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
